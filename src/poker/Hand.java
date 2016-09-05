@@ -65,23 +65,32 @@ public class Hand {
     public int straightFlushValue() {
         int straightFlushLength = 1;
         for(int x = 0; x+1 < cards.length; x++) {
-            if(cards[x].getNumber() == cards[x+1].getNumber() && cards[x+1].getValue() != Value.TWO) {
+            if(cards[x].getNumber() + 1 == cards[x+1].getNumber() && cards[x+1].getValue() != Value.TWO) {
                 straightFlushLength++;
             } else {
                 straightFlushLength = 1;
             }
             if(straightFlushLength == 5) {
-                return cards[x+1].getNumber();
+                return Value.valueToNumber(cards[x+1].getValue());
             }
         }
         return -1;
     }
 
-    public int fourOfAaKindValue() {
+    // This is the value of the 4 of a kind plus the value of the kicker
+    public int fourOfAKindValue() {
         Value[] values = Value.values();
         for(Value value : values) {
             if(valueCount.get(value) == 4) {
-                return Value.valueToNumber(value);
+                int fourOfAKindNumber = Value.valueToNumber(value);
+                int kickerNumber = 0;
+                for(Value v : values) {
+                    int vCount = valueCount.get(v);
+                    if(0 < vCount && vCount < 4) {
+                        kickerNumber = Value.valueToNumber(v);
+                    }
+                }
+                return (13 * fourOfAKindNumber) + kickerNumber;
             }
         }
         return -1;

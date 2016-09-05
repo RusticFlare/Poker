@@ -65,7 +65,7 @@ public class Hand {
     public int straightFlushValue() {
         int straightFlushLength = 1;
         for(int x = 0; x+1 < cards.length; x++) {
-            if(cards[x].getNumber() == cards[x+1].getNumber()) {
+            if(cards[x].getNumber() == cards[x+1].getNumber() && cards[x+1].getValue() != Value.TWO) {
                 straightFlushLength++;
             } else {
                 straightFlushLength = 1;
@@ -82,6 +82,22 @@ public class Hand {
         for(Value value : values) {
             if(valueCount.get(value) == 4) {
                 return Value.valueToNumber(value);
+            }
+        }
+        return -1;
+    }
+
+    public int straightValue() {
+        int straightLength = 0;
+        Value[] values = Value.values();
+        for(Value value : values) {
+            if(valueCount.get(value) > 0) {
+                straightLength++;
+                if(straightLength == 5) {
+                    return Value.valueToNumber(value);
+                }
+            } else {
+                straightLength = 0;
             }
         }
         return -1;

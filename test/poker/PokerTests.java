@@ -92,7 +92,7 @@ public class PokerTests {
     }
 
     @Test
-    public void shouldHaveStraightValue10() {
+    public void shouldHaveStraightValue9() {
         Card c0 = new Card(Value.JACK, Suit.CLUBS);
         Card c1 = new Card(Value.EIGHT, Suit.SPADES);
         Card c2 = new Card(Value.SEVEN, Suit.HEARTS);
@@ -102,6 +102,32 @@ public class PokerTests {
         Card c6 = new Card(Value.NINE, Suit.SPADES);
         Hand hand = new Hand(c0, c1, c2, c3, c4, c5, c6);
         assertEquals(9, hand.straightValue());
+    }
+
+    @Test
+    public void shouldHaveFlushValueMinusOne() {
+        Card c0 = new Card(Value.JACK, Suit.CLUBS);
+        Card c1 = new Card(Value.EIGHT, Suit.SPADES);
+        Card c2 = new Card(Value.SEVEN, Suit.HEARTS);
+        Card c3 = new Card(Value.SEVEN, Suit.DIAMONDS);
+        Card c4 = new Card(Value.TEN, Suit.CLUBS);
+        Card c5 = new Card(Value.THREE, Suit.CLUBS);
+        Card c6 = new Card(Value.NINE, Suit.SPADES);
+        Hand hand = new Hand(c0, c1, c2, c3, c4, c5, c6);
+        assertEquals(-1, hand.flushValue());
+    }
+
+    @Test
+    public void shouldHaveFlushValue363404() {
+        Card c0 = new Card(Value.ACE, Suit.CLUBS);
+        Card c1 = new Card(Value.EIGHT, Suit.SPADES);
+        Card c2 = new Card(Value.FOUR, Suit.CLUBS);
+        Card c3 = new Card(Value.SEVEN, Suit.DIAMONDS);
+        Card c4 = new Card(Value.JACK, Suit.CLUBS);
+        Card c5 = new Card(Value.SEVEN, Suit.CLUBS);
+        Card c6 = new Card(Value.SIX, Suit.CLUBS);
+        Hand hand = new Hand(c0, c1, c2, c3, c4, c5, c6);
+        assertEquals(363404, hand.flushValue());
     }
 
 }

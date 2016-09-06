@@ -111,4 +111,26 @@ public class Hand {
         }
         return -1;
     }
+
+    public int flushValue() {
+        Suit[] suits = Suit.values();
+        for(Suit suit : suits) {
+            if(suitCount.get(suit) >= 5) {
+                int flushValue = 0;
+                int cardsInFlushRemaining = suitCount.get(suit);
+                for(Card c : cards) {
+                    if(c.getSuit() == suit) {
+                        if(cardsInFlushRemaining <= 5) {
+                            int cardValue = Value.valueToNumber(c.getValue());
+                            int signifcance = 5 - cardsInFlushRemaining; // The first card in the flush is the least significant
+                            flushValue += Math.pow(13,signifcance) * cardValue;
+                        }
+                        cardsInFlushRemaining--;
+                    }
+                }
+                return flushValue;
+            }
+        }
+        return -1;
+    }
 }

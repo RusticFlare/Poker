@@ -130,4 +130,30 @@ public class PokerTests {
         assertEquals(363404, hand.flushValue());
     }
 
+    @Test
+    public void shouldHaveThreeOfAKindValueMinusOne() {
+        Card c0 = new Card(Value.QUEEN, Suit.CLUBS);
+        Card c1 = new Card(Value.ACE, Suit.SPADES);
+        Card c2 = new Card(Value.SEVEN, Suit.HEARTS);
+        Card c3 = new Card(Value.SEVEN, Suit.DIAMONDS);
+        Card c4 = new Card(Value.TWO, Suit.CLUBS);
+        Card c5 = new Card(Value.THREE, Suit.CLUBS);
+        Card c6 = new Card(Value.TWO, Suit.SPADES);
+        Hand hand = new Hand(c0, c1, c2, c3, c4, c5, c6);
+        assertEquals(-1, hand.threeOfAKindValue());
+    }
+
+    @Test
+    public void shouldHaveThreeOfAKindValue165() {
+        Card c0 = new Card(Value.EIGHT, Suit.SPADES);
+        Card c1 = new Card(Value.ACE, Suit.SPADES);
+        Card c2 = new Card(Value.TWO, Suit.HEARTS);
+        Card c3 = new Card(Value.TWO, Suit.DIAMONDS);
+        Card c4 = new Card(Value.JACK, Suit.SPADES);
+        Card c5 = new Card(Value.TWO, Suit.CLUBS);
+        Card c6 = new Card(Value.TEN, Suit.SPADES);
+        Hand hand = new Hand(c0, c1, c2, c3, c4, c5, c6);
+        assertEquals(165, hand.threeOfAKindValue());
+    }
+
 }

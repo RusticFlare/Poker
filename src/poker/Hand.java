@@ -137,8 +137,12 @@ public class Hand {
     // This is the value of the 4 of a kind plus the value of the kicker
     public int threeOfAKindValue() {
         Value[] values = Value.values();
+        int returnValue = -1;
         for(Value value : values) {
             if(valueCount.get(value) == 3) {
+                if(returnValue > -1) {
+                    return -1;
+                }
                 int threeOfAKindNumber = Value.valueToNumber(value);
                 int kickerNumber1 = 0;
                 int kickerNumber2 = 0;
@@ -149,9 +153,9 @@ public class Hand {
                         kickerNumber1 = Value.valueToNumber(v);
                     }
                 }
-                return (13 * 13 * threeOfAKindNumber) + (13 * kickerNumber1) + kickerNumber2;
+                returnValue = (13 * 13 * threeOfAKindNumber) + (13 * kickerNumber1) + kickerNumber2;
             }
         }
-        return -1;
+        return returnValue;
     }
 }
